@@ -1,0 +1,22 @@
+{
+  "stac_version": "1.0.0",
+  "type": "Catalog",
+  "id": "multi-item-example",
+  "title": "Stereo imagery",
+  "description": "Stereo imagery (two images)",
+  "links": [
+    {
+      "href": "https://raw.githubusercontent.com/stac-extensions/stereo-imagery/main/examples/multi/catalog.json",
+      "rel": "self",
+      "type": "application/json"
+    },
+    {
+      "href": "./item1.json",
+      "rel": "item"
+    },
+    {
+      "href": "./item2.json",
+      "rel": "item"
+    }
+  ]
+}

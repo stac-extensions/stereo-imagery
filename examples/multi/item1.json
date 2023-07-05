@@ -1,0 +1,65 @@
+{
+  "stac_version": "1.0.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json"
+  ],
+  "type": "Feature",
+  "id": "item1",
+  "bbox": [
+    172.9,
+    1.3,
+    173,
+    1.4
+  ],
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          172.9,
+          1.3
+        ],
+        [
+          173,
+          1.3
+        ],
+        [
+          173,
+          1.4
+        ],
+        [
+          172.9,
+          1.4
+        ],
+        [
+          172.9,
+          1.3
+        ]
+      ]
+    ]
+  },
+  "properties": {
+    "datetime": "2020-12-11T22:38:32.456Z",
+    "stereo-img:count": 2,
+    "stereo-img:number": 1
+  },
+  "links": [
+    {
+      "href": "https://raw.githubusercontent.com/stac-extensions/stereo-imagery/main/examples/multi/item1.json",
+      "rel": "self",
+      "type": "application/geo+json"
+    },
+    {
+      "href": "./item2.json",
+      "rel": "stereo",
+      "type": "application/geo+json",
+      "stereo-img:number": 2
+    }
+  ],
+  "assets": {
+    "capture": {
+      "href": "https://example.com/examples/img1.tif",
+      "type": "image/tiff"
+    }
+  }
+}

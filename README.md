@@ -1,60 +1,61 @@
-# Template Extension Specification
+# Stereo Imagery Extension Specification
 
-- **Title:** Template
-- **Identifier:** <https://stac-extensions.github.io/template/v1.0.0/schema.json>
-- **Field Name Prefix:** template
+- **Title:** Stereo Imagery
+- **Identifier:** <https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json>
+- **Field Name Prefix:** stereo-img
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal
-- **Owner**: @your-gh-handles @person2
+- **Owner**: @m-mohr
 
-This document explains the Template Extension to the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
-This is the place to add a short introduction.
+This document explains the Stereo Imagery Extension to the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
+This extension helps to describe stereo imagery, tri-stereo imagery, etc.
+This can be any group of 2+ captures with varying viewing angles that allows derive a 3-dimensional view from it.
 
 - Examples:
-  - [Item example](examples/item.json): Shows the basic usage of the extension in a STAC Item
-  - [Collection example](examples/collection.json): Shows the basic usage of the extension in a STAC Collection
-- [JSON Schema](json-schema/schema.json)
+  - [Single Item example](examples/single/item.json): An Item where each stereo capture is an asset.
+  - [Multiple Item example](examples/multi/catalog.json): A catalog where each stereo capture is an item.
+- [JSON Schema](json-schema/schema.json) (TODO)
 - [Changelog](./CHANGELOG.md)
 
 ## Fields
 
-The fields in the table below can be used in these parts of STAC documents:
-- [ ] Catalogs
+The extension allows to provide the captures either in a single Item (as assets)
+or as multiple Items.
+
+The field in the table below can be used in these parts of STAC documents:
 - [x] Collections
 - [x] Item Properties (incl. Summaries in Collections)
-- [x] Assets (for both Collections and Items, incl. Item Asset Definitions in Collections)
-- [ ] Links
 
-| Field Name           | Type                      | Description |
-| -------------------- | ------------------------- | ----------- |
-| template:new_field   | string                    | **REQUIRED**. Describe the required field... |
-| template:xyz         | [XYZ Object](#xyz-object) | Describe the field... |
-| template:another_one | \[number]                 | Describe the field... |
+| Field Name           | Type    | Description |
+| -------------------- | ------- | ----------- |
+| stereo-img:count     | integer | **REQUIRED**. The total number of captures in the group. 2 for stereo imagery (minimum), 3 for tri-stereo imagery, etc. |
 
-### Additional Field Information
+The field in the table below can be used in these parts of STAC documents:
+- [x] Item Properties (incl. Summaries in Collections)
+- [x] Assets (for Items)
+- [x] Links (in Items)
 
-#### template:new_field
+| Field Name           | Type    | Description |
+| -------------------- | ------- | ----------- |
+| stereo-img:number    | integer | **REQUIRED**. The capture number in the group, must be > 0 and <= the total count. |
 
-This is a much more detailed description of the field `template:new_field`...
+It is recommended to provide exact viewing angles, geometries and datetimes for each capture.
+Depending on the structure, the fields may either reside in the Item Properties or in the Assets.
 
-### XYZ Object
-
-This is the introduction for the purpose and the content of the XYZ Object...
-
-| Field Name  | Type   | Description |
-| ----------- | ------ | ----------- |
-| x           | number | **REQUIRED**. Describe the required field... |
-| y           | number | **REQUIRED**. Describe the required field... |
-| z           | number | **REQUIRED**. Describe the required field... |
+If the captures are provided in a single Item as assets:
+- the Item Geometry should be the union of all captures
+- the start and end datetime for the interval of all captures should be provided
 
 ## Relation types
 
 The following types should be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
-| Type                | Description |
-| ------------------- | ----------- |
-| fancy-rel-type      | This link points to a fancy resource. |
+| Type   | Description |
+| ------ | ----------- |
+| stereo | Link to the other captures in the group. |
+
+If this relation type is used, it is recommended to provide the `stereo-img:number` field in the Link Object.
 
 ## Contributing
 
