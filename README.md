@@ -11,6 +11,8 @@ This document explains the Stereo Imagery Extension to the
 [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
 This extension helps to describe stereo imagery, tri-stereo imagery, etc.
 This can be any group of 2+ captures with varying viewing angles that allows derive a 3-dimensional view from it.
+The overlap of the captures should be significantly high (usually 50 % or more) and
+the time difference between the captures should be minimal (usually a couple of minutes or less).
 
 - Examples:
   - [Single Item example](examples/single/item.json): An Item where each stereo capture is an asset.
