@@ -15,7 +15,7 @@ This can be any group of 2+ captures with varying viewing angles that allows der
 - Examples:
   - [Single Item example](examples/single/item.json): An Item where each stereo capture is an asset.
   - [Multiple Item example](examples/multi/collection.json): A Collection where each stereo capture is an item.
-- [JSON Schema](json-schema/schema.json) (TODO)
+- [JSON Schema](json-schema/schema.json)
 - [Changelog](./CHANGELOG.md)
 
 ## Fields

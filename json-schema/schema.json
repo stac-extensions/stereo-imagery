@@ -3,13 +3,22 @@
   "$id": "https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json#",
   "title": "Stereo Imagery Extension",
   "description": "STAC Stereo Imagery Extension, primarily for STAC Items.",
+  "type": "object",
+  "required": [
+    "stac_extensions"
+  ],
+  "properties": {
+    "stac_extensions": {
+      "type": "array",
+      "contains": {
+        "const": "https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json"
+      }
+    }
+  },
   "oneOf": [
     {
-      "$comment": "This is the schema for STAC Items. Remove this object if this extension only applies to Collections.",
+      "$comment": "This is the schema for STAC Items.",
       "allOf": [
-        {
-          "$ref": "#/definitions/stac_extensions"
-        },
         {
           "type": "object",
           "required": [
@@ -22,23 +31,43 @@
               "const": "Feature"
             },
             "properties": {
+              "required": [
+                "stereo-img:count"
+              ],
               "allOf": [
-                {
-                  "$comment": "Require fields here for Item Properties.",
-                  "required": [
-                    "stereo-img:count"
-                  ]
-                },
                 {
                   "$ref": "#/definitions/fields"
                 }
               ]
             },
             "assets": {
-              "$comment": "This validates the fields in Item Assets, but does not require them.",
               "type": "object",
               "additionalProperties": {
-                "$ref": "#/definitions/fields"
+                "$ref": "#/definitions/number_field"
+              }
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "if": {
+                  "required": [
+                    "rel"
+                  ],
+                  "properties": {
+                    "rel": {
+                      "const": "related"
+                    }
+                  }
+                },
+                "then": {
+                  "$ref": "#/definitions/number_field"
+                },
+                "else": {
+                  "patternProperties": {
+                    "^(?!stereo-img:)": {}
+                  },
+                  "additionalProperties": false
+                }
               }
             }
           }
@@ -48,27 +77,20 @@
     {
       "$comment": "This is the schema for STAC Collections.",
       "type": "object",
-      "allOf": [
-        {
-          "required": [
-            "type"
-          ],
-          "properties": {
-            "type": {
-              "const": "Collection"
-            }
-          }
-        },
-        {
-          "$ref": "#/definitions/stac_extensions"
-        }
+      "required": [
+        "type"
       ],
+      "properties": {
+        "type": {
+          "const": "Collection"
+        }
+      },
       "anyOf": [
         {
-          "$comment": "This is the schema for the top-level fields in a Collection. Remove this if this extension does not define top-level fields for Collections.",
+          "$comment": "This is the schema for the top-level fields in a Collection.",
           "allOf": [
             {
-              "$ref": "#/definitions/fields"
+              "$ref": "#/definitions/global_fields"
             }
           ]
         },
@@ -88,7 +110,7 @@
                         "required": ["stereo-img:count"]
                       },
                       {
-                        "$ref": "#/definitions/fields"
+                        "$ref": "#/definitions/number_field"
                       }
                     ]
                   }
@@ -116,41 +138,62 @@
     }
   ],
   "definitions": {
-    "stac_extensions": {
-      "type": "object",
-      "required": [
-        "stac_extensions"
-      ],
-      "properties": {
-        "stac_extensions": {
-          "type": "array",
-          "contains": {
-            "const": "https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json"
-          }
-        }
-      }
-    },
     "fields": {
-      "$comment": "Add your new fields here. Don't require them here, do that above in the corresponding schema.",
       "type": "object",
       "properties": {
         "stereo-img:group": {
-          "type": "string",
-          "minLength": 1
+          "$ref": "#/definitions/group"
         },
         "stereo-img:count": {
-          "type": "integer",
-          "minimum": 2
+          "$ref": "#/definitions/count"
         },
         "stereo-img:number": {
-          "type": "integer",
-          "minimum": 1
+          "$ref": "#/definitions/number"
         }
       },
       "patternProperties": {
         "^(?!stereo-img:)": {}
       },
       "additionalProperties": false
+    },
+    "number_field": {
+      "type": "object",
+      "properties": {
+        "stereo-img:number": {
+          "$ref": "#/definitions/number"
+        }
+      },
+      "patternProperties": {
+        "^(?!stereo-img:)": {}
+      },
+      "additionalProperties": false
+    },
+    "global_fields": {
+      "type": "object",
+      "properties": {
+        "stereo-img:group": {
+          "$ref": "#/definitions/group"
+        },
+        "stereo-img:count": {
+          "$ref": "#/definitions/count"
+        }
+      },
+      "patternProperties": {
+        "^(?!stereo-img:)": {}
+      },
+      "additionalProperties": false
+    },
+    "group": {
+      "type": "string",
+      "minLength": 1
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 1
     }
   }
 }
