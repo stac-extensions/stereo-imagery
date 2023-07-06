@@ -26,7 +26,7 @@
                 {
                   "$comment": "Require fields here for Item Properties.",
                   "required": [
-                    "template:new_field"
+                    "stereo-img:count"
                   ]
                 },
                 {
@@ -68,40 +68,9 @@
           "$comment": "This is the schema for the top-level fields in a Collection. Remove this if this extension does not define top-level fields for Collections.",
           "allOf": [
             {
-              "$comment": "Require fields here for Collections (top-level).",
-              "required": [
-                "template:new_field"
-              ]
-            },
-            {
               "$ref": "#/definitions/fields"
             }
           ]
-        },
-        {
-          "$comment": "This validates the fields in Collection Assets, but does not require them.",
-          "required": [
-            "assets"
-          ],
-          "properties": {
-            "assets": {
-              "type": "object",
-              "not": {
-                "additionalProperties": {
-                  "not": {
-                    "allOf": [
-                      {
-                        "$ref": "#/definitions/require_any_field"
-                      },
-                      {
-                        "$ref": "#/definitions/fields"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
         },
         {
           "$comment": "This is the schema for the fields in Item Asset Definitions. It doesn't require any fields.",
@@ -116,7 +85,7 @@
                   "not": {
                     "allOf": [
                       {
-                        "$ref": "#/definitions/require_any_field"
+                        "required": ["stereo-img:count"]
                       },
                       {
                         "$ref": "#/definitions/fields"
@@ -135,7 +104,11 @@
           ],
           "properties": {
             "summaries": {
-              "$ref": "#/definitions/require_any_field"
+              "anyOf": [
+                {"required": ["stereo-img:group"]},
+                {"required": ["stereo-img:count"]},
+                {"required": ["stereo-img:number"]}
+              ]
             }
           }
         }
@@ -157,51 +130,25 @@
         }
       }
     },
-    "require_any_field": {
-      "$comment": "Please list all fields here so that we can force the existence of one of them in other parts of the schemas.",
-      "anyOf": [
-        {"required": ["template:new_field"]},
-        {"required": ["template:xyz"]},
-        {"required": ["template:another_one"]}
-      ]
-    },
     "fields": {
       "$comment": "Add your new fields here. Don't require them here, do that above in the corresponding schema.",
       "type": "object",
       "properties": {
-        "template:new_field": {
-          "type": "string"
+        "stereo-img:group": {
+          "type": "string",
+          "minLength": 1
         },
-        "template:xyz": {
-          "type": "object",
-          "required": [
-            "x",
-            "y",
-            "z"
-          ],
-          "properties": {
-            "x": {
-              "type": "number"
-            },
-            "y": {
-              "type": "number"
-            },
-            "z": {
-              "type": "number"
-            }
-          }
+        "stereo-img:count": {
+          "type": "integer",
+          "minimum": 2
         },
-        "template:another_one": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
+        "stereo-img:number": {
+          "type": "integer",
+          "minimum": 1
         }
       },
       "patternProperties": {
-        "^(?!template:)": {
-          "$comment": "Above, change `template` to the prefix of this extension"
-        }
+        "^(?!stereo-img:)": {}
       },
       "additionalProperties": false
     }

@@ -7,20 +7,21 @@
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal
 - **Owner**: @m-mohr
 
-This document explains the Stereo Imagery Extension to the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
+This document explains the Stereo Imagery Extension to the
+[SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
 This extension helps to describe stereo imagery, tri-stereo imagery, etc.
 This can be any group of 2+ captures with varying viewing angles that allows derive a 3-dimensional view from it.
 
 - Examples:
   - [Single Item example](examples/single/item.json): An Item where each stereo capture is an asset.
-  - [Multiple Item example](examples/multi/catalog.json): A catalog where each stereo capture is an item.
+  - [Multiple Item example](examples/multi/collection.json): A Collection where each stereo capture is an item.
 - [JSON Schema](json-schema/schema.json) (TODO)
 - [Changelog](./CHANGELOG.md)
 
 ## Fields
 
-The extension allows to provide the captures either in a single Item (as assets)
-or as multiple Items.
+The extension allows to provide the captures either 
+in a single Item as assets (Single Mode) or as multiple Items (Multi Mode).
 
 The field in the table below can be used in these parts of STAC documents:
 - [x] Collections
@@ -29,6 +30,7 @@ The field in the table below can be used in these parts of STAC documents:
 | Field Name           | Type    | Description |
 | -------------------- | ------- | ----------- |
 | stereo-img:count     | integer | **REQUIRED**. The total number of captures in the group. 2 for stereo imagery (minimum), 3 for tri-stereo imagery, etc. |
+| stereo-img:group     | string  | Multi Mode only: A unique identifier that for the group of captures. Helps to search for all images of a group. |
 
 The field in the table below can be used in these parts of STAC documents:
 - [x] Item Properties (incl. Summaries in Collections)
@@ -39,7 +41,8 @@ The field in the table below can be used in these parts of STAC documents:
 | -------------------- | ------- | ----------- |
 | stereo-img:number    | integer | **REQUIRED**. The capture number in the group, must be > 0 and <= the total count. |
 
-The order of the captures that is reflected in `stereo-img:number` can usually be derived from the acquisition time (`datetime`) unless there's another specific order for the captures.
+The order of the captures that is reflected in `stereo-img:number` can usually be derived
+from the acquisition time (`datetime`) unless there's another specific order for the captures.
 
 It is recommended to provide exact viewing angles, geometries and timestamps for each capture.
 Depending on the structure, the fields may either reside in the Item Properties or in the Assets.
@@ -53,11 +56,12 @@ If the captures are provided in a single Item as assets:
 The following types should be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
-| Type    | Description                              |
-| ------- | ---------------------------------------- |
-| related | Link to the other captures in the group. |
+| Type    | Description                                               |
+| ------- | --------------------------------------------------------- |
+| related | Multi Mode only: Link to the other captures in the group (recommended). |
 
-If the `related` relation type is used, it is **REQUIRED** to provide the `stereo-img:number` and `type` fields in the Link Object. This allows clients to distinguish them from other "related" links.
+If the `related` relation type is used, it is **REQUIRED** to provide the `stereo-img:number` and `type` fields in the Link Object.
+This allows clients to distinguish them from other "related" links.
 
 ## Contributing
 
