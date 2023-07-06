@@ -39,6 +39,8 @@ The field in the table below can be used in these parts of STAC documents:
 | -------------------- | ------- | ----------- |
 | stereo-img:number    | integer | **REQUIRED**. The capture number in the group, must be > 0 and <= the total count. |
 
+The order of the captures that is reflected in `stereo-img:number` can usually be derived from the acquisition time (`datetime`) unless there's another specific order for the captures.
+
 It is recommended to provide exact viewing angles, geometries and datetimes for each capture.
 Depending on the structure, the fields may either reside in the Item Properties or in the Assets.
 
