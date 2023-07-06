@@ -51,7 +51,7 @@
     },
     {
       "href": "./item1.json",
-      "rel": "stereo",
+      "rel": "related",
       "type": "application/geo+json",
       "stereo-img:number": 1
     }

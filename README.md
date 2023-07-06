@@ -41,7 +41,7 @@ The field in the table below can be used in these parts of STAC documents:
 
 The order of the captures that is reflected in `stereo-img:number` can usually be derived from the acquisition time (`datetime`) unless there's another specific order for the captures.
 
-It is recommended to provide exact viewing angles, geometries and datetimes for each capture.
+It is recommended to provide exact viewing angles, geometries and timestamps for each capture.
 Depending on the structure, the fields may either reside in the Item Properties or in the Assets.
 
 If the captures are provided in a single Item as assets:
@@ -53,11 +53,11 @@ If the captures are provided in a single Item as assets:
 The following types should be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
-| Type   | Description |
-| ------ | ----------- |
-| stereo | Link to the other captures in the group. |
+| Type    | Description                              |
+| ------- | ---------------------------------------- |
+| related | Link to the other captures in the group. |
 
-If this relation type is used, it is recommended to provide the `stereo-img:number` field in the Link Object.
+If the `related` relation type is used, it is **REQUIRED** to provide the `stereo-img:number` and `type` fields in the Link Object. This allows clients to distinguish them from other "related" links.
 
 ## Contributing
 
