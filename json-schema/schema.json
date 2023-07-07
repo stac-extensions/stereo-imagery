@@ -135,6 +135,23 @@
           }
         }
       ]
+    },
+    {
+      "$comment": "This is the schema for STAC Catalogs.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "const": "Catalog"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/global_fields"
+        }
+      ]
     }
   ],
   "definitions": {

@@ -26,6 +26,7 @@ The extension allows to provide the captures either
 in a single Item as assets (Single Mode) or as multiple Items (Multi Mode).
 
 The field in the table below can be used in these parts of STAC documents:
+- [x] Catalogs
 - [x] Collections
 - [x] Item Properties (incl. Summaries in Collections)
 
