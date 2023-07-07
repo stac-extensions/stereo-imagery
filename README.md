@@ -1,7 +1,7 @@
 # Stereo Imagery Extension Specification
 
 - **Title:** Stereo Imagery
-- **Identifier:** <https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json>
+- **Identifier:** <https://stac-extensions.github.io/stereo-imagery/v0.0.1/schema.json>
 - **Field Name Prefix:** stereo-img
 - **Scope:** Item, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal

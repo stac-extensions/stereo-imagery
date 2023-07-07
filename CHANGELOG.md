@@ -16,4 +16,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-[Unreleased]: <https://github.com/stac-extensions/stereo-imagery/compare/v1.0.0...HEAD>
+[Unreleased]: <https://github.com/stac-extensions/stereo-imagery/compare/v0.0.1...HEAD>
