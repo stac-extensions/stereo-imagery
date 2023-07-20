@@ -11,19 +11,19 @@ This document explains the Stereo Imagery Extension to the
 [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
 This extension helps to describe stereo imagery, tri-stereo imagery, etc.
 This can be any group of 2+ captures with varying viewing angles that allows derive a 3-dimensional view from it.
-The overlap of the captures should be significantly high (usually 50 % or more) and
+The overlap of the captures should be significantly high (usually 75 % or more) and
 the time difference between the captures should be minimal (usually a couple of minutes or less).
 
 - Examples:
+  - [Multiple Item example](examples/multi/collection.json): A Collection where each stereo capture is an item (recommended).
   - [Single Item example](examples/single/item.json): An Item where each stereo capture is an asset.
-  - [Multiple Item example](examples/multi/collection.json): A Collection where each stereo capture is an item.
 - [JSON Schema](json-schema/schema.json)
 - [Changelog](./CHANGELOG.md)
 
 ## Fields
 
 The extension allows to provide the captures either 
-in a single Item as assets (Single Mode) or as multiple Items (Multi Mode).
+as multiple Items (Multi Mode, recommended) or in a single Item as assets (Single Mode).
 
 The field in the table below can be used in these parts of STAC documents:
 - [x] Catalogs
@@ -59,8 +59,8 @@ If the captures are provided in a single Item as assets:
 The following types should be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
-| Type    | Description                                               |
-| ------- | --------------------------------------------------------- |
+| Type    | Description                                                             |
+| ------- | ----------------------------------------------------------------------- |
 | related | Multi Mode only: Link to the other captures in the group (recommended). |
 
 If the `related` relation type is used, it is **REQUIRED** to provide the `stereo-img:number` and `type` fields in the Link Object.
