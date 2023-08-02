@@ -1,9 +1,9 @@
 # Stereo Imagery Extension Specification
 
 - **Title:** Stereo Imagery
-- **Identifier:** <https://stac-extensions.github.io/stereo-imagery/v0.0.1/schema.json>
+- **Identifier:** <https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json>
 - **Field Name Prefix:** stereo-img
-- **Scope:** Item, Collection
+- **Scope:** Item, Catalog, Collection
 - **Extension [Maturity Classification](https://github.com/radiantearth/stac-spec/tree/master/extensions/README.md#extension-maturity):** Proposal
 - **Owner**: @m-mohr
 
@@ -47,6 +47,7 @@ The order of the captures that is reflected in `stereo-img:number` can usually b
 from the acquisition time (`datetime`) unless there's another specific order for the captures.
 
 It is recommended to provide exact viewing angles, geometries and timestamps for each capture in the Item Properties.
+Additionally, it is recommended to identify the actual stereo imagery in the assets with the role `data`.
 
 ## Relation types
 
