@@ -46,7 +46,7 @@
   },
   "links": [
     {
-      "href": "https://raw.githubusercontent.com/stac-extensions/stereo-imagery/main/examples/item2.json",
+      "href": "https://raw.githubusercontent.com/stac-extensions/stereo-imagery/main/examples/multi/item2.json",
       "rel": "self",
       "type": "application/geo+json"
     },

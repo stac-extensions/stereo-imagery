@@ -32,7 +32,7 @@
   },
   "links": [
     {
-      "href": "https://raw.githubusercontent.com/stac-extensions/stereo-imagery/main/examples/collection.json",
+      "href": "https://raw.githubusercontent.com/stac-extensions/stereo-imagery/main/examples/multi/collection.json",
       "rel": "self",
       "type": "application/json"
     },
