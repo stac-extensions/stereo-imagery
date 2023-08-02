@@ -60,6 +60,17 @@ The following types should be used as applicable `rel` types in the
 If the `related` relation type is used, it is **REQUIRED** to provide the `stereo-img:number` and `type` fields in the Link Object.
 This allows clients to distinguish them from other "related" links.
 
+## Search Examples
+
+If you'd want to search for distinct stereo imagery groups you could use the
+API [Filter Extension](https://github.com/stac-api-extensions/filter) as follows:
+
+- Find one image per pair for stereo-imagery: `stereo-img:count = 2 and stereo-img:number = 1`
+  (and then navigate from the first to the other images)
+- Only find tri-stereo imagery: `stereo-img:count = 3`
+
+All examples are expressed in CQL Text.
+
 ## Contributing
 
 All contributions are subject to the
