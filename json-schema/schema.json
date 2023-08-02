@@ -40,6 +40,12 @@
                 }
               ]
             },
+            "assets": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/number_field"
+              }
+            },
             "links": {
               "type": "array",
               "items": {
