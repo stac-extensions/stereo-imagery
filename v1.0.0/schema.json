@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json#",
+  "title": "Stereo Imagery Extension",
+  "description": "STAC Stereo Imagery Extension, primarily for STAC Items.",
+  "type": "object",
+  "required": [
+    "stac_extensions"
+  ],
+  "properties": {
+    "stac_extensions": {
+      "type": "array",
+      "contains": {
+        "const": "https://stac-extensions.github.io/stereo-imagery/v1.0.0/schema.json"
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$comment": "This is the schema for STAC Items.",
+      "allOf": [
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "properties",
+            "assets"
+          ],
+          "properties": {
+            "type": {
+              "const": "Feature"
+            },
+            "properties": {
+              "required": [
+                "stereo-img:count"
+              ],
+              "allOf": [
+                {
+                  "$ref": "#/definitions/fields"
+                }
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "if": {
+                  "required": [
+                    "rel"
+                  ],
+                  "properties": {
+                    "rel": {
+                      "const": "related"
+                    }
+                  }
+                },
+                "then": {
+                  "$ref": "#/definitions/number_field"
+                },
+                "else": {
+                  "patternProperties": {
+                    "^(?!stereo-img:)": {}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$comment": "This is the schema for STAC Collections.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "const": "Collection"
+        }
+      },
+      "anyOf": [
+        {
+          "$comment": "This is the schema for the top-level fields in a Collection.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/global_fields"
+            }
+          ]
+        },
+        {
+          "$comment": "This is the schema for the fields in Item Asset Definitions. It doesn't require any fields.",
+          "required": [
+            "item_assets"
+          ],
+          "properties": {
+            "item_assets": {
+              "type": "object",
+              "not": {
+                "additionalProperties": {
+                  "not": {
+                    "allOf": [
+                      {
+                        "required": ["stereo-img:count"]
+                      },
+                      {
+                        "$ref": "#/definitions/number_field"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "$comment": "This is the schema for the fields in Summaries. By default, only checks the existence of the properties, but not the schema of the summaries.",
+          "required": [
+            "summaries"
+          ],
+          "properties": {
+            "summaries": {
+              "anyOf": [
+                {"required": ["stereo-img:group"]},
+                {"required": ["stereo-img:count"]},
+                {"required": ["stereo-img:number"]}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$comment": "This is the schema for STAC Catalogs.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "const": "Catalog"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/global_fields"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "fields": {
+      "type": "object",
+      "properties": {
+        "stereo-img:group": {
+          "$ref": "#/definitions/group"
+        },
+        "stereo-img:count": {
+          "$ref": "#/definitions/count"
+        },
+        "stereo-img:number": {
+          "$ref": "#/definitions/number"
+        }
+      },
+      "patternProperties": {
+        "^(?!stereo-img:)": {}
+      },
+      "additionalProperties": false
+    },
+    "number_field": {
+      "type": "object",
+      "properties": {
+        "stereo-img:number": {
+          "$ref": "#/definitions/number"
+        }
+      },
+      "patternProperties": {
+        "^(?!stereo-img:)": {}
+      },
+      "additionalProperties": false
+    },
+    "global_fields": {
+      "type": "object",
+      "properties": {
+        "stereo-img:group": {
+          "$ref": "#/definitions/group"
+        },
+        "stereo-img:count": {
+          "$ref": "#/definitions/count"
+        }
+      },
+      "patternProperties": {
+        "^(?!stereo-img:)": {}
+      },
+      "additionalProperties": false
+    },
+    "group": {
+      "type": "string",
+      "minLength": 1
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}
