@@ -14,16 +14,16 @@ This can be any group of 2+ captures with varying viewing angles that allows der
 The overlap of the captures should be significantly high (usually 75 % or more) and
 the time difference between the captures should be minimal (usually a couple of minutes or less).
 
-- Examples:
-  - [Multiple Item example](examples/multi/collection.json): A Collection where each stereo capture is an item (recommended).
-  - [Single Item example](examples/single/item.json): An Item where each stereo capture is an asset.
+- Example:
+  - [Collection](examples/collection.json): A Collection pointing to a pair of stereo imagery as Items.
+  - [Item 1](examples/item1.json): The first Item of the pair.
+  - [Item 2](examples/item2.json): The second Item of the pair.
 - [JSON Schema](json-schema/schema.json)
 - [Changelog](./CHANGELOG.md)
 
 ## Fields
 
-The extension allows to provide the captures either 
-as multiple Items (Multi Mode, recommended) or in a single Item as assets (Single Mode).
+The extension allows to provide the captures as multiple Items.
 
 The field in the table below can be used in these parts of STAC documents:
 - [x] Catalogs
@@ -33,11 +33,10 @@ The field in the table below can be used in these parts of STAC documents:
 | Field Name           | Type    | Description |
 | -------------------- | ------- | ----------- |
 | stereo-img:count     | integer | **REQUIRED**. The total number of captures in the group. 2 for stereo imagery (minimum), 3 for tri-stereo imagery, etc. |
-| stereo-img:group     | string  | Multi Mode only: A unique identifier that for the group of captures. Helps to search for all images of a group. |
+| stereo-img:group     | string  | A unique identifier that for the group of captures. Helps to search for all images of a group. |
 
 The field in the table below can be used in these parts of STAC documents:
 - [x] Item Properties (incl. Summaries in Collections)
-- [x] Assets (for Items)
 - [x] Links (in Items)
 
 | Field Name           | Type    | Description |
@@ -47,21 +46,16 @@ The field in the table below can be used in these parts of STAC documents:
 The order of the captures that is reflected in `stereo-img:number` can usually be derived
 from the acquisition time (`datetime`) unless there's another specific order for the captures.
 
-It is recommended to provide exact viewing angles, geometries and timestamps for each capture.
-Depending on the structure, the fields may either reside in the Item Properties or in the Assets.
-
-If the captures are provided in a single Item as assets:
-- the Item Geometry should be the union of all captures
-- the start and end datetime for the interval of all captures should be provided
+It is recommended to provide exact viewing angles, geometries and timestamps for each capture in the Item Properties.
 
 ## Relation types
 
 The following types should be used as applicable `rel` types in the
 [Link Object](https://github.com/radiantearth/stac-spec/tree/master/item-spec/item-spec.md#link-object).
 
-| Type    | Description                                                             |
-| ------- | ----------------------------------------------------------------------- |
-| related | Multi Mode only: Link to the other captures in the group (recommended). |
+| Type    | Description |
+| ------- | ----------- |
+| related | Link to the other captures in the group. |
 
 If the `related` relation type is used, it is **REQUIRED** to provide the `stereo-img:number` and `type` fields in the Link Object.
 This allows clients to distinguish them from other "related" links.
